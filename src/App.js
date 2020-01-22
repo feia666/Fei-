@@ -1,11 +1,32 @@
 import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import NamePicker from './namePicker'
 
 function App() {
+  const[message, setMessage]=useState([])
+  const[name, setName]=useState('')
+    return ( <main>
+        <header>
+            <img className= "logo" alt="logo"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png"/>
+               chaaat
+            <NamePicker onSave={setName}/>
+        </header>
+        <div className="msg-group">
+          
+            {message.map((m,i)=>{
+            return<div key={i} className="message" >{m} </div>
+          })}
+          </div>
+          <TextInput onSend= {(text) =>{
+          setMessage([text, ...message])
+        }}/> 
+        
+    </main>)
+ 
 
-  //onClick={()=>{Props.onSend(text) setText('')}
-  
+
   function TextInput(props) {
     const [text, setText] = useState('')
     return (
@@ -16,25 +37,21 @@ function App() {
             onChange={e=> setText(e.target.value)}
             />
 
-          <button className="button" onClick={() => setText('')}>
+          <button className="button" onClick={() => {if(text)
+            props.onSend(text) 
+            setText('')}}
+            disabled={!text}>
+
           <img className= "arrow" alt="arrow"
           src="https://image.flaticon.com/icons/svg/25/25649.svg"></img>
+          
           </button>
         </div>)
   }
 
-  return (
-    <main>
-        <header>
-            <img className= "logo" alt="logo"
-                src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png"/>
-               chaaat
-        </header>
-        <body>
-          
-          {TextInput()}
-        </body>
-    </main>)
-}
 
+}
+    function Namebox() {
+
+    }
 export default App;
