@@ -24,8 +24,10 @@ header{
   height:38px;
   margin: auto;
   padding: 10px;
-  align-items: center;
+  
   display:flex;
+  align-items:center;
+  justify-content: space-between;
 
 }
 header img{
@@ -85,7 +87,7 @@ align-content: center;
   margin:10px;
   border-radius:5px;
   padding:3px 6px;
-  width:auto;
+  width:100vh;
   top:48px;
   left:0px;
   font-size: small;
@@ -94,8 +96,7 @@ align-content: center;
 
 .msg-group {
   height:calc(100vh - 96px);
-  width:auto;
-
+  width: 10vw;
   position: absolute;
   top:48px;
   left:0px;
@@ -104,11 +105,39 @@ align-content: center;
   float: left;
 
  }
- .nameInput{
-  border: none;
-  border-radius: 15px;
-  position: absolute;
-  right: 10vh;
-  bottom:10px;
-   
- }
+
+
+ .edit-nameInput{
+  display: flex;
+  align-items: center;
+
+}
+.name-button{
+  height:29px;
+  margin:0 6px;
+  background:transparent;
+  color:white;
+  font-size:18px;
+  padding:4px;
+  cursor: pointer;
+  border:none;
+  outline:none;
+  border-radius: 4px;
+}
+.name-button:hover{
+  background:rgba(255,255,255,0.1)
+}
+
+.name-input{
+  color:white;
+  height:31px;
+  border:1px solid white;
+  border-radius:14px;
+  padding-left:12px;
+  background:#1f1e2e;
+  padding-bottom:2px;
+  font-size:12px;
+  outline:none;
+}
+
+ 

@@ -1,26 +1,38 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import NamePicker from './namePicker'
+import {db} from './db';
+
 
 function App() {
-  const[message, setMessage]=useState([])
+  const[message, setMessages]=useState([])
   const[name, setName]=useState('')
+
+  useEffect(()=>{
+    db.listen({
+      receive: m=> 
+      setMessages(current=>[m, ...current])
+    },
+    )}, [])
+
     return ( <main>
         <header>
             <img className= "logo" alt="logo"
                 src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png"/>
                chaaat
-            <NamePicker onSave={setName}/>
+          <NamePicker onSave={setName}/>
         </header>
         <div className="msg-group">
           
             {message.map((m,i)=>{
-            return<div key={i} className="message" >{m} </div>
+            return<div key={i} className="message" >{m.text} </div>
           })}
           </div>
           <TextInput onSend= {(text) =>{
-          setMessage([text, ...message])
+           db.send({
+            text,name, ts:new Date(),
+          })
         }}/> 
         
     </main>)
@@ -49,9 +61,5 @@ function App() {
         </div>)
   }
 
-
 }
-    function Namebox() {
-
-    }
 export default App;
