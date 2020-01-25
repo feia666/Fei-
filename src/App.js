@@ -1,20 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import NamePicker from './namePicker'
-import {db} from './db';
+import NamePicker from './namePicker';
+import {db, useDB} from './db';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+// import { MdRoom } from 'react-icons/md';
 
 
-function App() {
-  const[message, setMessages]=useState([])
-  const[name, setName]=useState('')
-
+function App(){
   useEffect(()=>{
-    db.listen({
-      receive: m=> 
-      setMessages(current=>[m, ...current])
-    },
-    )}, [])
+    const {pathname} = window.location
+    if(pathname.length<2) window.location.pathname='home'
+  }, [])
+  return <BrowserRouter>
+    <Route path="/:room" component={Room}/>
+  </BrowserRouter>
+}
+
+function Room(props) {
+  const {room} =props.match.params
+  const[name, setName]=useState('')
+  const messages = useDB(room)
 
     return ( <main>
         <header>
@@ -23,15 +30,20 @@ function App() {
                chaaat
           <NamePicker onSave={setName}/>
         </header>
-        <div className="msg-group">
-          
-            {message.map((m,i)=>{
-            return<div key={i} className="message" >{m.text} </div>
-          })}
+
+      <div className="messages">
+        {messages.map((m,i)=>{
+          return <div key={i} className="message-wrap" from={m.name===name? 'you':'me'}>
+            <div className="message">
+              <div className="msg-name">{m.name}</div>
+              <div className="msg-text">{m.text}</div>
+            </div>
           </div>
+        })}
+      </div>
           <TextInput onSend= {(text) =>{
            db.send({
-            text,name, ts:new Date(),
+            text,name, ts:new Date(), room
           })
         }}/> 
         
@@ -47,6 +59,8 @@ function App() {
             value={text}
             placeholder="  hi there" 
             onChange={e=> setText(e.target.value)}
+            onKeyPress={e=> {
+              if(e.key==='Enter') props.onSend(text) }}
             />
 
           <button className="button" onClick={() => {if(text)
@@ -60,6 +74,6 @@ function App() {
           </button>
         </div>)
   }
-
 }
+
 export default App;

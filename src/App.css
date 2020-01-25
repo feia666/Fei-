@@ -80,37 +80,44 @@ align-content: center;
   width:15px;
   height: 20px;
 }
-.message{
-
-  color:white;
-  background:black;
-  margin:10px;
-  border-radius:5px;
-  padding:3px 6px;
-  width:100vh;
-  top:48px;
-  left:0px;
-  font-size: small;
-  
-}
-
-.msg-group {
+.messages{
   height:calc(100vh - 96px);
-  width: 10vw;
+  width:100vw;
   position: absolute;
   top:48px;
   left:0px;
   display:flex;
   flex-direction: column-reverse;
-  float: left;
+  overflow-y:scroll;
+}
+.message-wrap{
+  width:100%;
+  display:flex;
+  justify-content: flex-start;
+}
+.message-wrap[from="you"]{
+  justify-content: flex-end;
+  width:100%;
 
- }
+}
 
-
- .edit-nameInput{
-  display: flex;
-  align-items: center;
-
+.message{
+  position: relative;
+  margin-top:10px;
+}
+.msg-text{
+  color:white;
+  background:black;
+  margin:5px;
+  border-radius:5px;
+  padding:3px 6px;
+  display: inline-block;
+}
+.msg-name{
+  font-size:11px;
+  position:absolute;
+  top:-9px;
+  left:5px;
 }
 .name-button{
   height:29px;
@@ -127,7 +134,6 @@ align-content: center;
 .name-button:hover{
   background:rgba(255,255,255,0.1)
 }
-
 .name-input{
   color:white;
   height:31px;
@@ -139,5 +145,13 @@ align-content: center;
   font-size:12px;
   outline:none;
 }
-
- 
+.username{
+  display: flex;
+  align-items: center;
+  margin-right:12px;
+  font-size:1.1rem;
+}
+.edit-nameInput{
+  display:flex;
+  align-items: center;
+}
