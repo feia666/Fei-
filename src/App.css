@@ -61,10 +61,11 @@ align-content: center;
   border:none;
   background: white;
   border-radius: 15px;
-  width:90%;
+  width:85%;
   height: 25px;
   position: absolute;
   bottom: 0;
+  left:35px;
   margin: 5px;
   
 
@@ -154,4 +155,8 @@ align-content: center;
 .edit-nameInput{
   display:flex;
   align-items: center;
+}
+.camera{
+border:none;
+border-radius: 15px;
 }
