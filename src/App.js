@@ -9,6 +9,8 @@ import * as firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
 import {MdCameraAlt} from 'react-icons/md';
+import'./media.css';
+import Div100vh from 'react-div-100vh';
 
 
 
@@ -42,7 +44,7 @@ function Room(props) {
       img: imgID, name, ts: new Date(), room 
     })
   }
-    return ( <main>
+    return ( <Div100vh>
 
     {showCamera && <Camera takePicture={takePicture} />}  
 
@@ -69,12 +71,14 @@ function Room(props) {
           })
         }}/> 
         
-    </main>)
+    </Div100vh>)
  
- const bucket = 'https://firebasestorage.googleapis.com/v0/b/chaaat-6205d.appspot.com/o/'
- const suffix = '.jpg?alt=media'
+
  
 function Message({m, name}){
+  const bucket = 'https://firebasestorage.googleapis.com/v0/b/chaaat-6205d.appspot.com/o/'
+  const suffix = '.jpg?alt=media'
+
   return <div className="message-wrap" from={m.name===name? 'you':'me'}>
   <div className="message">
     <div className="msg-name">{m.name}</div>
@@ -92,19 +96,20 @@ function Message({m, name}){
         <div className="text-input"> 
            <button className="camera" 
               onClick={props.showCamera}
-             style={{position:'absolute', left:2, top:10}}>
-            <MdCameraAlt style={{height:15, width:15}} />
+             >
+            <MdCameraAlt style={{height:13, width:13}} />
           </button>
-          <input className="input-box" 
+
+        <input className="input-box" 
             value={text}
             placeholder="  hi there" 
             onChange={e=> setText(e.target.value)}
             onKeyPress={e=> {
               if(e.key==='Enter') props.onSend(text) }}
-            />
+          />
 
-          <button className="button" onClick={() => {if(text)
-            props.onSend(text) 
+          <button className="button" onClick={() => 
+          {if(text) props.onSend(text) 
             setText('')}}
             disabled={!text}>
 
